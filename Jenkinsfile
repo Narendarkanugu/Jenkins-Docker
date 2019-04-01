@@ -10,10 +10,7 @@ pipeline {
                sh  'mvn clean package'
             }
 
-            steps{
-                sh 'docker build . -t tomcatwebapp:{$enc.BUILD_ID}'
-            }
-
+           
             post{
                 success{
                     echo 'Now Archiving ....'
@@ -22,6 +19,13 @@ pipeline {
                 }
             }
         }
+        stage('create Tomcat Docker image'){
+                steps{
+                sh 'docker build . -t tomcatapp:{$enc.BUILD_ID}'
+               }
+     
+        }
+       
 
     }
 }
